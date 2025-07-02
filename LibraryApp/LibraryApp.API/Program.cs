@@ -17,10 +17,8 @@ namespace WebApplication1
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddDbContextPool<LibContext>(opt =>
-            {
-                opt.UseNpgsql(builder.Configuration.GetConnectionString("LibraryDatabase"));
-            });
+            // Database
+            builder.Services.AddDatabase(builder.Configuration);
 
             var app = builder.Build();
 
