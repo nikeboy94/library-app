@@ -26,7 +26,7 @@
             </template>
 
             <template #title>
-              <h2 class="text-h5 font-weight-bold">
+              <h2 class="text-h5 font-weight-bold text-center">
                 Use this website to explore books
               </h2>
             </template>
@@ -39,13 +39,13 @@
             append-icon="mdi-open-in-new"
             class="py-4"
             color="surface-variant"
-            @click="routeTo(link.href)"
             :prepend-icon="link.icon"
             rel="noopener noreferrer"
             rounded="lg"
             :subtitle="link.subtitle"
             :title="link.title"
             variant="tonal"
+            @click="routeTo(link.href)"
           />
         </v-col>
       </v-row>
@@ -71,7 +71,7 @@
     },
   ]
 
-  function routeTo(route: string) {
+  function routeTo (route: string) {
     router.push(route)
   }
 </script>
