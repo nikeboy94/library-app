@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryApp.Database", "Libr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryApp.Database.Migrations", "LibraryApp.Database.Migrations\LibraryApp.Database.Migrations.csproj", "{EEB58569-57B6-4B63-B66A-B629BBD35E93}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryApp.DataTransferObjects", "LibraryApp.DataTransferObjects\LibraryApp.DataTransferObjects.csproj", "{0EC9C643-75C2-4771-A075-DA8B2AF2761D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{EEB58569-57B6-4B63-B66A-B629BBD35E93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EEB58569-57B6-4B63-B66A-B629BBD35E93}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EEB58569-57B6-4B63-B66A-B629BBD35E93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EC9C643-75C2-4771-A075-DA8B2AF2761D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EC9C643-75C2-4771-A075-DA8B2AF2761D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EC9C643-75C2-4771-A075-DA8B2AF2761D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EC9C643-75C2-4771-A075-DA8B2AF2761D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

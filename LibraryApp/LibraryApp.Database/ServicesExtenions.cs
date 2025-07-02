@@ -1,11 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LibraryApp.Database.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibraryApp.Database
 {
@@ -13,12 +9,14 @@ namespace LibraryApp.Database
     {
         public static void AddDatabase(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContextPool<LibContext>(options =>
+            services.AddDbContextFactory<LibContext>(options =>
             {
                 options
                 .UseNpgsql(configuration.GetConnectionString("LibraryDatabase"))
                 .UseSnakeCaseNamingConvention();
-            });
+            }, ServiceLifetime.Singleton);
+
+            services.AddTransient<IBookRepository, BookRepository>();
         }
     }
 }

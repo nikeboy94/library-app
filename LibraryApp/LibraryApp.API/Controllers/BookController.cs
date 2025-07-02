@@ -1,4 +1,5 @@
-using LibraryApp.API.Models;
+using LibraryApp.Database.Repositories;
+using LibraryApp.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApplication1.Controllers
@@ -8,25 +9,22 @@ namespace WebApplication1.Controllers
     public class BookController : ControllerBase
     {
         private readonly ILogger<BookController> _logger;
+        private readonly IBookRepository _bookRepository;
 
-        public BookController(ILogger<BookController> logger)
+        public BookController(ILogger<BookController> logger, IBookRepository bookRepository)
         {
             _logger = logger;
+            _bookRepository = bookRepository;
         }
 
         [HttpGet]
         [Route("all")]
-        public IActionResult GetBooks()
+        [ProducesResponseType(typeof(IEnumerable<BookDto>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetBooks(int? skip = null, int? limit = null)
         {
-            var books = new List<BookModel>()
-            {
-                new BookModel()
-                {
-                    Title = "Lord of the Rings",
-                    Description = "Something about a ring",
-                    Author = "J.R.R. Tolkien"
-                }
-            };
+            _logger.LogInformation("Request received to retrieve books");
+
+            var books = await _bookRepository.GetBooks(skip, limit);
 
             return Ok(books);
         }

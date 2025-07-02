@@ -1,4 +1,6 @@
-﻿namespace LibraryApp.Database.Migrations
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace LibraryApp.Database.Migrations
 {
     internal class Program
     {
@@ -8,7 +10,7 @@
 
             using (var context = new LibContextFactory().CreateDbContext(args))
             {
-                context.Database.EnsureCreated();
+                context.Database.Migrate();
 
                 context.SeedBooks();
             }

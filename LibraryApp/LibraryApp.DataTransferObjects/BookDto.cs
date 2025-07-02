@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace LibraryApp.API.Models
+﻿namespace LibraryApp.DataTransferObjects
 {
-    public class BookModel
+    public class BookDto
     {
+        public required int Id { get; set; }
+
         public required string Title { get; set; }
 
         public string? Description { get; set; }
