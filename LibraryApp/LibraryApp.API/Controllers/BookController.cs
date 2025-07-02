@@ -18,7 +18,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
-        [Route("all")]
+        [Route("")]
         [ProducesResponseType(typeof(IEnumerable<BookDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetBooks(int? skip = null, int? limit = null)
         {
@@ -27,6 +27,54 @@ namespace WebApplication1.Controllers
             var books = await _bookRepository.GetBooks(skip, limit);
 
             return Ok(books);
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        [ProducesResponseType(typeof(BookDto), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetBook(int id)
+        {
+            _logger.LogInformation("Request received to retrieve books with Id {id}", id);
+
+            var books = await _bookRepository.GetBook(id);
+
+            return Ok(books);
+        }
+
+        [HttpPost]
+        [Route("")]
+        [ProducesResponseType(typeof(BookDto), StatusCodes.Status200OK)]
+        public async Task<IActionResult> AddBook(BookBaseDto book)
+        {
+            _logger.LogInformation("Request received to add book");
+
+            var books = await _bookRepository.AddBook(book);
+
+            return Ok(books);
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        [ProducesResponseType(typeof(BookDto), StatusCodes.Status200OK)]
+        public async Task<IActionResult> UpdateBook(int id, BookBaseDto book)
+        {
+            _logger.LogInformation("Request received to update book with Id {id}", id);
+
+            var books = await _bookRepository.UpdateBook(id, book);
+
+            return Ok(books);
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> DeleteBook(int id)
+        {
+            _logger.LogInformation("Request received to delete book with Id {id}", id);
+
+            await _bookRepository.DeleteBook(id);
+
+            return Ok();
         }
     }
 }
