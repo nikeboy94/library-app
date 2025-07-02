@@ -1,5 +1,6 @@
 using LibraryApp.Database.Repositories;
 using LibraryApp.DataTransferObjects;
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApplication1.Controllers
@@ -44,7 +45,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         [Route("")]
         [ProducesResponseType(typeof(BookDto), StatusCodes.Status200OK)]
-        public async Task<IActionResult> AddBook(BookBaseDto book)
+        public async Task<IActionResult> AddBook(BookPostDto book)
         {
             _logger.LogInformation("Request received to add book");
 
@@ -53,14 +54,26 @@ namespace WebApplication1.Controllers
             return Ok(books);
         }
 
-        [HttpPut]
+        [HttpPatch]
         [Route("{id}")]
         [ProducesResponseType(typeof(BookDto), StatusCodes.Status200OK)]
-        public async Task<IActionResult> UpdateBook(int id, BookBaseDto book)
+        public async Task<IActionResult> UpdateBook(int id, BookUpdateDto book)
         {
             _logger.LogInformation("Request received to update book with Id {id}", id);
 
             var books = await _bookRepository.UpdateBook(id, book);
+
+            return Ok(books);
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        [ProducesResponseType(typeof(BookDto), StatusCodes.Status200OK)]
+        public async Task<IActionResult> UpdateBook(int id, BookPostDto book)
+        {
+            _logger.LogInformation("Request received to update book with Id {id}", id);
+
+            var books = await _bookRepository.UpdateBook(id, book.Adapt<BookUpdateDto>());
 
             return Ok(books);
         }

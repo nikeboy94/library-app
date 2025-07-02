@@ -1,6 +1,6 @@
 ﻿namespace LibraryApp.DataTransferObjects
 {
-    public class BookBaseDto
+    public class BookPostDto
     {
         public required string Title { get; set; }
 

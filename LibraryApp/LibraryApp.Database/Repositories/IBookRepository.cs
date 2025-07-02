@@ -8,9 +8,9 @@ namespace LibraryApp.Database.Repositories
 
         Task<BookDto> GetBook(int id);
 
-        Task<BookDto> AddBook(BookBaseDto book);
+        Task<BookDto> AddBook(BookPostDto book);
 
-        Task<BookDto> UpdateBook(int id, BookBaseDto book);
+        Task<BookDto> UpdateBook(int id, BookUpdateDto book);
 
         Task<int> DeleteBook(int id);
     }

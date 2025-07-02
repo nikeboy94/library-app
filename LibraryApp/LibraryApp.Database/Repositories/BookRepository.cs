@@ -60,7 +60,7 @@ namespace LibraryApp.Database.Repositories
             }
         }
 
-        public async Task<BookDto> AddBook(BookBaseDto book)
+        public async Task<BookDto> AddBook(BookPostDto book)
         {
             using (var context = await _dbContextFactory.CreateDbContextAsync())
             {
@@ -73,15 +73,15 @@ namespace LibraryApp.Database.Repositories
             }
         }
 
-        public async Task<BookDto> UpdateBook(int id, BookBaseDto book)
+        public async Task<BookDto> UpdateBook(int id, BookUpdateDto book)
         {
             using (var context = await _dbContextFactory.CreateDbContextAsync())
             {
                 var bookEntity = await GetBook(id);
 
-                bookEntity.Title = book.Title;
-                bookEntity.Description = book.Description;
-                bookEntity.Author = book.Author;
+                bookEntity.Title = book.Title ?? bookEntity.Title;
+                bookEntity.Description = book.Description ?? bookEntity.Description;
+                bookEntity.Author = book.Author ?? bookEntity.Author;
 
                 await context.SaveChangesAsync();
 
