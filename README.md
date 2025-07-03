@@ -1,2 +1,2 @@
 # library-app
-Basis library app
+Basic library app
