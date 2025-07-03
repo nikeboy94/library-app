@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace LibraryApp.Database.Migrations
 {
@@ -15,16 +14,15 @@ namespace LibraryApp.Database.Migrations
                 databaseString = args[0];
             }
 
-            var dbContextFactory = new PooledDbContextFactory<LibContext>(
-                new DbContextOptionsBuilder<LibContext>()
+            var dbContextOptions = new DbContextOptionsBuilder<LibContext>()
                 .UseNpgsql(databaseString, options =>
                 {
                     options.MigrationsAssembly("LibraryApp.Database.Migrations");
                 })
                 .UseSnakeCaseNamingConvention()
-                .Options);
+                .Options;
 
-            return dbContextFactory.CreateDbContext();
+            return new LibContext(dbContextOptions);
         }
     }
 }

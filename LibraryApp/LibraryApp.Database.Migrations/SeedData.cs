@@ -6,25 +6,32 @@ namespace LibraryApp.Database.Migrations
     {
         public static int SeedBooks(this LibContext context)
         {
-            var books = new List<Book>()
+            int changes = 0;
+
+            if (!context.Books.Any())
             {
-                new Book()
+                var books = new List<Book>()
                 {
-                    Title = "Lord of the Rings",
-                    Description = "Something about a ring",
-                    Author = "J.R.R. Tolkien"
-                },
-                new Book()
-                {
-                    Title = "Amazing Spider-Man #1",
-                    Description = "About a friendly neighbourhood spider-man",
-                    Author = "Stan Lee & Steve Ditko"
-                },
-            };
+                    new Book()
+                    {
+                        Title = "Lord of the Rings",
+                        Description = "Something about a ring",
+                        Author = "J.R.R. Tolkien"
+                    },
+                    new Book()
+                    {
+                        Title = "Amazing Spider-Man #1",
+                        Description = "About a friendly neighbourhood spider-man",
+                        Author = "Stan Lee & Steve Ditko"
+                    },
+                };
 
-            context.Books.AddRange(books);
+                context.Books.AddRange(books);
 
-            return context.SaveChanges();
+                changes += context.SaveChanges();
+            }
+
+            return changes;
         }
     }
 }

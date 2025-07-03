@@ -6,12 +6,12 @@ namespace LibraryApp.Database.Migrations
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Running database migrations...");
-
             using (var context = new LibContextFactory().CreateDbContext(args))
             {
+                Console.WriteLine("Running database migrations...");
                 context.Database.Migrate();
 
+                Console.WriteLine("Seeding data...");
                 context.SeedBooks();
             }
         }
