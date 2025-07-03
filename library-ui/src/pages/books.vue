@@ -13,16 +13,11 @@
           Popular books
         </v-toolbar-title>
 
-        <v-btn
-          border
-          class="me-2"
-          prepend-icon="mdi-plus"
-          rounded="lg"
-          text="Add a Book"
-        />
+        <add-dialog @refetch-books="getBooks()" />
 
         <v-text-field
           v-model="search"
+          class="mr-2"
           density="compact"
           flat
           hide-details
@@ -32,15 +27,19 @@
           variant="solo-filled"
         />
 
-        <v-divider :vertical="true" />
       </v-toolbar>
+    </template>
+
+    <template #item.actions="{ item }">
+      <edit-dialog :book="item" @refetch-books="getBooks()" />
+      <v-btn flat icon="mdi-delete-outline" @click="deleteBook(item.id)" />
     </template>
   </v-data-table>
 </template>
 
 <script lang="ts" setup>
   import axios from 'axios'
-  import Book from '@/classes/book'
+  import Book from '@/classes/Book'
 
   const books = ref(new Array<Book>())
   const search = ref('')
@@ -57,6 +56,17 @@
       .get('https://localhost:7124/books')
       .then(response => {
         books.value = response.data.map((b: any) => new Book(b))
+      })
+      .catch(error => {
+        console.error(error)
+      })
+  }
+
+  function deleteBook (id: number) {
+    axios
+      .delete(`https://localhost:7124/books/${id}`)
+      .then(() => {
+        getBooks()
       })
       .catch(error => {
         console.error(error)

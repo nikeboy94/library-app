@@ -77,7 +77,16 @@ namespace LibraryApp.Database.Repositories
         {
             using (var context = await _dbContextFactory.CreateDbContextAsync())
             {
-                var bookEntity = await GetBook(id);
+                var bookEntity = await context.Books
+                    .Where(b => b.Id == id)
+                    .SingleOrDefaultAsync();
+
+                if (bookEntity == null)
+                {
+                    var msg = $"Book with Id {id} does not exist";
+                    _logger.LogError(msg);
+                    throw new InvalidOperationException(msg);
+                }
 
                 bookEntity.Title = book.Title ?? bookEntity.Title;
                 bookEntity.Description = book.Description ?? bookEntity.Description;
